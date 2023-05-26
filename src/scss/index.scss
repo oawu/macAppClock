@@ -1,0 +1,330 @@
+//
+// @author      OA Wu <oawu.tw@gmail.com>
+// @copyright   Copyright (c) 2015 - 2022, Lalilo
+// @license     http://opensource.org/licenses/MIT  MIT License
+// @link        https://www.ioa.tw/
+//
+
+@use "sass:math";
+@import "_/_Lib";
+@import "Lalilo";
+
+@font-face { font-family: "digital"; src: url("../icon/digital7/digital7mono.ttf?t=1612017672612") format("truetype"); }
+@font-face { font-family: "digital2"; src: url("../icon/digital7/digital7.ttf?t=1612017672612") format("truetype"); }
+
+#app {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+
+  background-color: rgba(0, 0, 0, 1);
+  * {
+    @extend %-user-select-none;
+  }
+}
+#button {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  // background-color: rgba(0, 0, 255, 0.2);
+  
+  z-index: 2;
+
+}
+#top {
+  position: fixed;
+  top: 2%;
+  left: 10%;
+  right: 10%;
+  bottom: 32%;
+
+  z-index: 1;
+  // border: 1px solid rgba(255, 0, 0, .3);
+  
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  
+  
+  .left {
+    // position: absolute;
+    // left: 0;
+    flex-shrink: 0;
+    // top: 50%;
+    // @include transform(translateY(-50%));
+  }
+  .right {
+    flex-grow: 1;
+    // position: absolute;
+    // right: 0;
+    // top: 50%;
+    // @include transform(translateY(-50%));
+  }
+}
+
+#digital {
+  // right: 8px;
+  // left: 50%;
+  // top: 30px + 540px + 50px;
+  // border: 1px solid rgba(255, 255, 255, 1);
+  width: 800px;
+  height: 280px;
+  // line-height: 280px;
+  $color: rgba(93, 232, 159, 1.00);
+  // @include transform(translateX(-50%));
+  // border: 1px solid rgba(255, 0, 0, .3);
+  padding: 0 120px;
+  
+  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  
+  span {
+    // border: 1px solid rgba(255, 0, 0, .3);
+    
+    // height: 100%/;
+    color: white;
+    font-size: 200px;
+    letter-spacing: 2px;
+    width: calc(100% / 4 - 40px / 4);
+    flex-shrink: 0;
+    font-family: 'digital';
+    color: $color;
+    @include opacity(.75);
+    
+    &:nth-child(1), &:nth-child(4) {
+      text-align: right;
+      padding-right: 8px;
+    }
+    &:nth-child(2), &:nth-child(5) {
+      text-align: left;
+      padding-left: 8px;
+    }
+    &:nth-child(3) {
+      width: 40px;
+      font-family: 'digital2';
+      @include animation(opacity 2s linear infinite);
+    }
+  }
+}
+#clock {
+  position: relative;
+
+  --size: 680px;
+  --num-size: 84px;
+  --num-color: rgba(120, 120, 120, 1);
+  --hour-color: rgba(210, 210, 210, 1);
+  --min-color: rgba(255, 255, 255, 1);
+  --sec-color: rgba(213, 79, 61, 1.00);
+  
+  --dot-color: rgba(200, 200, 200, 1);
+
+  // border: 1px solid rgba(255, 0, 0, .3);
+
+  width: var(--size);
+  height: var(--size);
+  display: inline-block;
+
+  > * {
+    @include user-select(none);
+    z-index: 2;
+    position: absolute;
+    display: inline-block;
+  }
+
+  &:before {
+    // content: '';
+    // position: absolute;
+    // left: 50%;
+    // top: 50%;
+    // display: inline-block;
+    // width: calc(100% + 40px);
+    // height: calc(100% + 40px);
+    // // border: 1px solid rgba(177, 40, 40, .4);
+    // // background-color: rgba(177, 40, 40, .75);
+    // // @include border-radius(50%);
+    // // @include transform(translate(-50%, -50%));
+    // // z-index: 10;
+    // background-color: rgba(255, 255, 255, .1);
+    // @include border-radius(50%);
+    // @include transform(translate(-50%, -50%));
+    // z-index: 1;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    border: 1px solid rgba(0, 0, 0, .1);
+    background-color: rgba(0, 0, 0, .2);
+    @include border-radius(50%);
+    @include transform(translate(-50%, -50%));
+    z-index: 10;
+  }
+
+  b {
+    width: var(--num-size);
+    height: var(--num-size);
+
+    font-size: calc(var(--num-size) - 12px);
+    color: var(--num-color);
+    @include transform(translate(-50%, -50%));
+
+    &:before {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      font-family: Fraunces;
+      @include transform(translate(-50%, -50%));
+    }
+
+    @for $i from 0 through 11 {
+      &.n#{$i} {
+        top: calc(50% - (#{math.cos($i * 30deg)} * (var(--size) - var(--num-size) - 32px) / 2));
+        left: calc(50% + (#{math.sin($i * 30deg)} * (var(--size) - var(--num-size) - 32px) / 2));
+        &:before { content: '#{($i + 11) % 12 + 1}'; }
+      }
+    }
+  }
+
+  i {
+    background-color: var(--dot-color);
+    
+    @for $i from 0 through 59 {
+      &.n#{$i} {
+        @include transform(translate(-50%, -50%) rotate($i * 6deg));
+
+        @if $i % 5 == 0 {
+          $h: 18px;
+          height: $h;
+          width: 10px;
+          top: calc(50% - (#{math.cos($i * 6deg)} * (var(--size) - #{$h} + #{$h}) / 2));
+          left: calc(50% + (#{math.sin($i * 6deg)} * (var(--size) - #{$h} + #{$h}) / 2));
+          @include border-radius(10px / 2);
+          @include opacity(1);
+        } @else {
+          $h: 8px;
+          height: $h;
+          width: 8px;
+          top: calc(50% - (#{math.cos($i * 6deg)} * (var(--size) - #{$h}) / 2));
+          left: calc(50% + (#{math.sin($i * 6deg)} * (var(--size) - #{$h}) / 2));
+          @include border-radius(50%);
+          @include opacity(.6);
+        }
+      }
+    }
+  }
+
+  u {
+    position: absolute;
+    display: inline-block;
+    z-index: 3;
+    @include rotate(0);
+    @include transition(none);
+    @include box-shadow(0 0 3px 1px rgba(0, 0, 0, .5));
+    
+    @for $i from 0 through 60 {
+      &.n#{$i} {
+        @include rotate(#{$i * 6deg});
+      }
+    }
+    &.ani {
+      @include transition(transform .5s cubic-bezier(.11, 1.45, .46, .94));
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      display: inline-block;
+      background-color: rgba(255, 255, 255, .5);
+      @include transform(translateX(-50%));
+      @include border-radius(50%);
+    }
+    
+    &.s {
+      $width: 8px;
+      $padding: 60px;
+      $over: 20px;
+      $color: rgba(213, 79, 61, 1.00);
+
+      width: $width;
+      height: calc(50% + #{$width / 2 - $padding + $over});
+      left: calc(50% - #{$width / 2});
+      bottom: calc(50% - #{$width / 2 + $over});
+      background-color: var(--sec-color);
+      @include border-radius($width / 2);
+      @include transform-origin(center, calc(100% - #{$width / 2 + $over}));
+
+      &:after {
+        width: 20px;
+        height: 20px;
+        bottom: $over + $width / 2 - 20px / 2;
+        background-color: var(--sec-color);
+      }
+    }
+    &.m {
+      $width: 12px;
+      $padding: 90px;
+      $over: 24px;
+      // $color: rgba(207, 181, 120, 1.00);
+
+      width: $width;
+      height: calc(50% + #{$width / 2 - $padding + $over});
+      left: calc(50% - #{$width / 2});
+      bottom: calc(50% - #{$width / 2 + $over});
+      background-color: var(--min-color);
+      @include border-radius($width / 2);
+      @include transform-origin(center, calc(100% - #{$width / 2 + $over}));
+
+      &:after {
+        width: 30px;
+        height: 30px;
+        bottom: $over + $width / 2 - 30px / 2;
+        background-color: var(--min-color);
+      }
+    }
+    &.h {
+      $width: 16px;
+      $padding: 140px;
+      $over: 28px;
+      // $color: rgba(168, 144, 96, 1.00);
+
+      width: $width;
+      height: calc(50% + #{$width / 2 - $padding + $over});
+      left: calc(50% - #{$width / 2});
+      bottom: calc(50% - #{$width / 2 + $over});
+      background-color: var(--hour-color);
+      @include border-radius($width / 2);
+      @include transform-origin(center, calc(100% - #{$width / 2 + $over}));
+
+      &:after {
+        width: 40px;
+        height: 40px;
+        bottom: $over + $width / 2 - 40px / 2;
+        background-color: var(--hour-color);
+      }
+    }
+  }
+}
+
+
+@include keyframes(opacity) {
+  0% { @include opacity(.25); }
+  40% { @include opacity(.85); }
+  60% { @include opacity(.85); }
+  100% { @include opacity(.25); }
+}
