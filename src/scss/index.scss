@@ -213,7 +213,7 @@
           width: 10px;
           top: calc(50% - (#{math.cos($i * 6deg)} * (var(--size) - #{$h} + #{$h}) / 2));
           left: calc(50% + (#{math.sin($i * 6deg)} * (var(--size) - #{$h} + #{$h}) / 2));
-          @include border-radius(10px / 2);
+          @include border-radius(math.div(10px, 2));
           @include opacity(1);
         } @else {
           $h: 8px;
@@ -262,17 +262,17 @@
       $color: rgba(213, 79, 61, 1.00);
 
       width: $width;
-      height: calc(50% + #{$width / 2 - $padding + $over});
-      left: calc(50% - #{$width / 2});
-      bottom: calc(50% - #{$width / 2 + $over});
+      height: calc(50% + #{math.div($width, 2) - $padding + $over});
+      left: calc(50% - #{math.div($width, 2)});
+      bottom: calc(50% - #{math.div($width, 2) + $over});
       background-color: var(--sec-color);
-      @include border-radius($width / 2);
-      @include transform-origin(center, calc(100% - #{$width / 2 + $over}));
+      @include border-radius(math.div($width, 2));
+      @include transform-origin(center, calc(100% - #{math.div($width, 2) + $over}));
 
       &:after {
         width: 20px;
         height: 20px;
-        bottom: $over + $width / 2 - 20px / 2;
+        bottom: $over + math.div($width, 2) - math.div(20px, 2);
         background-color: var(--sec-color);
       }
     }
@@ -283,17 +283,17 @@
       // $color: rgba(207, 181, 120, 1.00);
 
       width: $width;
-      height: calc(50% + #{$width / 2 - $padding + $over});
-      left: calc(50% - #{$width / 2});
-      bottom: calc(50% - #{$width / 2 + $over});
+      height: calc(50% + #{math.div($width, 2) - $padding + $over});
+      left: calc(50% - #{math.div($width, 2)});
+      bottom: calc(50% - #{math.div($width, 2) + $over});
       background-color: var(--min-color);
-      @include border-radius($width / 2);
-      @include transform-origin(center, calc(100% - #{$width / 2 + $over}));
+      @include border-radius(math.div($width, 2));
+      @include transform-origin(center, calc(100% - #{math.div($width, 2) + $over}));
 
       &:after {
         width: 30px;
         height: 30px;
-        bottom: $over + $width / 2 - 30px / 2;
+        bottom: $over + math.div($width, 2) - math.div(30px, 2);
         background-color: var(--min-color);
       }
     }
@@ -304,17 +304,17 @@
       // $color: rgba(168, 144, 96, 1.00);
 
       width: $width;
-      height: calc(50% + #{$width / 2 - $padding + $over});
-      left: calc(50% - #{$width / 2});
-      bottom: calc(50% - #{$width / 2 + $over});
+      height: calc(50% + #{math.div($width, 2) - $padding + $over});
+      left: calc(50% - #{math.div($width, 2)});
+      bottom: calc(50% - #{math.div($width, 2) + $over});
       background-color: var(--hour-color);
-      @include border-radius($width / 2);
-      @include transform-origin(center, calc(100% - #{$width / 2 + $over}));
+      @include border-radius(math.div($width, 2));
+      @include transform-origin(center, calc(100% - #{math.div($width, 2) + $over}));
 
       &:after {
         width: 40px;
         height: 40px;
-        bottom: $over + $width / 2 - 40px / 2;
+        bottom: $over + math.div($width, 2) - math.div(40px, 2);
         background-color: var(--hour-color);
       }
     }
