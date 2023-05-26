@@ -19,7 +19,8 @@ Load.VueComponent('digital', {
     go () {
       const date = new Date(), sec = date.getSeconds(), min = date.getMinutes(), hour = date.getHours(), pod0 = n => (n < 10 ? '0' : '') + n
       this.m = pod0(min).split('')
-      this.h = pod0((hour + 11) % 12 + 1).split('')
+      this.h = pod0(hour).split('')
+      // this.h = pod0((hour + 11) % 12 + 1).split('')
     }
   },
   template: `
