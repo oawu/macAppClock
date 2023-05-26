@@ -18,15 +18,14 @@ echo html(
     title(TITLE),
 
     asset()
-      ->css('https://fonts.googleapis.com/css?family=Fraunces:400,300,700')
       ->css('icon.css')
       ->css('_/Core.css')
-      ->css('index.css')
+      ->css('p1.css')
       
       ->js('https://code.jquery.com/jquery-1.12.4.min.js')
       ->js('https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js')
       ->js('_/Core.js')
-      ->js('index.js')
+      ->js('p1.js')
   ),
   body()
 )->lang('zh-Hant');
